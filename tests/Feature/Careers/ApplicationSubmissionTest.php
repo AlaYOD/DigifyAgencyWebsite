@@ -76,6 +76,19 @@ it('rejects a duplicate email on the same vacancy with its reference', function 
         ->and(JobApplication::where('job_posting_id', $job->id)->where('email', 'candidate@example.com')->count())->toBe(1);
 });
 
+it('normalizes application emails before duplicate checking', function () {
+    $job = publishedApplicationJob();
+    $this->post('/careers/'.$job->getTranslation('slug', 'en').'/apply', submissionPayload('Ali@X.com'))
+        ->assertRedirect();
+
+    $response = $this->from('/careers/'.$job->getTranslation('slug', 'en').'/apply/')
+        ->post('/careers/'.$job->getTranslation('slug', 'en').'/apply', submissionPayload(' ali@x.com '));
+
+    $response->assertRedirect()->assertSessionHasErrors('email');
+    expect(JobApplication::where('job_posting_id', $job->id)->count())->toBe(1)
+        ->and(JobApplication::firstOrFail()->email)->toBe('ali@x.com');
+});
+
 it('allows the same email on a different vacancy', function () {
     $first = publishedApplicationJob();
     $second = publishedApplicationJob();

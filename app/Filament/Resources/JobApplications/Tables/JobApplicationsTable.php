@@ -16,6 +16,7 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -87,14 +88,20 @@ class JobApplicationsTable
                     ])
                     ->visible(fn (JobApplication $record): bool => auth()->user()?->can('move', $record) ?? false)
                     ->action(function (JobApplication $record, array $data): void {
-                        StageTransition::create([
-                            'job_application_id' => $record->id,
-                            'from_stage_id' => $record->pipeline_stage_id,
-                            'to_stage_id' => $data['pipeline_stage_id'],
-                            'user_id' => auth()->id(),
-                            'created_at' => now(),
-                        ]);
-                        $record->update(['pipeline_stage_id' => $data['pipeline_stage_id']]);
+                        if ((int) $record->pipeline_stage_id === (int) $data['pipeline_stage_id']) {
+                            return;
+                        }
+
+                        DB::transaction(function () use ($record, $data): void {
+                            StageTransition::create([
+                                'job_application_id' => $record->id,
+                                'from_stage_id' => $record->pipeline_stage_id,
+                                'to_stage_id' => $data['pipeline_stage_id'],
+                                'user_id' => auth()->id(),
+                                'created_at' => now(),
+                            ]);
+                            $record->update(['pipeline_stage_id' => $data['pipeline_stage_id']]);
+                        });
                     }),
             ])
             ->toolbarActions([

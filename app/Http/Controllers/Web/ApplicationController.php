@@ -11,6 +11,7 @@ use App\Models\JobApplication;
 use App\Models\JobPosting;
 use App\Models\PipelineStage;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -38,6 +39,7 @@ class ApplicationController extends Controller
 
         $job = $this->publishedJob($slug);
         $validated = $request->validated();
+        $validated['email'] = strtolower(trim($validated['email']));
 
         $existing = JobApplication::query()
             ->where('job_posting_id', $job->id)
@@ -50,27 +52,46 @@ class ApplicationController extends Controller
             ]);
         }
 
-        $application = DB::transaction(function () use ($job, $validated, $request): JobApplication {
-            $application = JobApplication::create([
-                'job_posting_id' => $job->id,
-                'pipeline_stage_id' => PipelineStage::where('is_default', true)->value('id'),
-                'first_name' => $validated['first_name'],
-                'last_name' => $validated['last_name'],
-                'email' => $validated['email'],
-                'phone' => $validated['phone'] ?? null,
-                'cover_letter' => $validated['cover_letter'] ?? null,
-                'portfolio_url' => $validated['portfolio_url'] ?? null,
-                'linkedin_url' => $validated['linkedin_url'] ?? null,
-                'locale' => app()->getLocale(),
-                'source' => 'website',
-                'applied_at' => now(),
+        try {
+            $application = DB::transaction(function () use ($job, $validated, $request): JobApplication {
+                $application = JobApplication::create([
+                    'job_posting_id' => $job->id,
+                    'pipeline_stage_id' => PipelineStage::where('is_default', true)->value('id'),
+                    'first_name' => $validated['first_name'],
+                    'last_name' => $validated['last_name'],
+                    'email' => $validated['email'],
+                    'phone' => $validated['phone'] ?? null,
+                    'cover_letter' => $validated['cover_letter'] ?? null,
+                    'portfolio_url' => $validated['portfolio_url'] ?? null,
+                    'linkedin_url' => $validated['linkedin_url'] ?? null,
+                    'locale' => app()->getLocale(),
+                    'source' => 'website',
+                    'applied_at' => now(),
+                ]);
+
+                $application->addMedia($request->file('cv'))->toMediaCollection('cv');
+                $job->increment('applications_count');
+
+                return $application;
+            });
+        } catch (QueryException $exception) {
+            if ($exception->getCode() !== '23505') {
+                throw $exception;
+            }
+
+            $existing = JobApplication::query()
+                ->where('job_posting_id', $job->id)
+                ->where('email', $validated['email'])
+                ->first();
+
+            if ($existing === null) {
+                throw $exception;
+            }
+
+            return back()->withErrors([
+                'email' => 'An application for this vacancy already exists. Reference: '.$existing->jobPosting->reference_code,
             ]);
-
-            $application->addMedia($request->file('cv'))->toMediaCollection('cv');
-            $job->increment('applications_count');
-
-            return $application;
-        });
+        }
 
         $thankYouRoute = app()->getLocale() === 'ar'
             ? route('careers.ar.thank-you')

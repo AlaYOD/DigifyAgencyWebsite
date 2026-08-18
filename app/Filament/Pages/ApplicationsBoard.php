@@ -7,6 +7,7 @@ use App\Models\JobApplication;
 use App\Models\PipelineStage;
 use App\Models\StageTransition;
 use Filament\Pages\Page;
+use Illuminate\Support\Facades\DB;
 
 class ApplicationsBoard extends Page
 {
@@ -62,15 +63,17 @@ class ApplicationsBoard extends Page
             return;
         }
 
-        StageTransition::create([
-            'job_application_id' => $application->id,
-            'from_stage_id' => $fromStageId,
-            'to_stage_id' => $toStageId,
-            'user_id' => auth()->id(),
-            'created_at' => now(),
-        ]);
+        DB::transaction(function () use ($application, $fromStageId, $toStageId): void {
+            StageTransition::create([
+                'job_application_id' => $application->id,
+                'from_stage_id' => $fromStageId,
+                'to_stage_id' => $toStageId,
+                'user_id' => auth()->id(),
+                'created_at' => now(),
+            ]);
 
-        $application->update(['pipeline_stage_id' => $toStageId]);
+            $application->update(['pipeline_stage_id' => $toStageId]);
+        });
 
         $card = null;
         foreach ($this->columns as &$column) {

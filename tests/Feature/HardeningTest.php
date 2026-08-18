@@ -37,6 +37,15 @@ it('records both concurrent stage moves as immutable transitions', function (): 
     expect($application->transitions()->count())->toBe(2);
 });
 
+it('generates distinct reference codes for postings created in one department', function (): void {
+    $departmentId = App\Models\Department::where('slug->en', 'engineering')->value('id');
+
+    $first = JobPosting::factory()->create(['department_id' => $departmentId]);
+    $second = JobPosting::factory()->create(['department_id' => $departmentId]);
+
+    expect($first->reference_code)->not->toBe($second->reference_code);
+});
+
 it('cascades an application when its vacancy is deleted', function (): void {
     $job = JobPosting::factory()->create();
     $application = JobApplication::factory()->create(['job_posting_id' => $job->id]);

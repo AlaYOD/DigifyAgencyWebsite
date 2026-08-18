@@ -60,10 +60,17 @@ class JobPosting extends Model implements HasMedia
     {
         static::creating(function (JobPosting $posting): void {
             $department = Department::findOrFail($posting->department_id);
+            Department::query()->whereKey($department->id)->lockForUpdate()->firstOrFail();
             $departmentName = $department->getTranslation('name', 'en');
             $prefix = substr(preg_replace('/[^A-Z0-9]/', '', strtoupper($departmentName)), 0, 3);
             $year = now()->year;
-            $maxSequence = (int) DB::table('job_postings')
+            JobPosting::withTrashed()
+                ->where('department_id', $posting->department_id)
+                ->where('reference_code', 'like', "$prefix-$year-%")
+                ->lockForUpdate()
+                ->get(['id']);
+
+            $maxSequence = (int) JobPosting::withTrashed()
                 ->where('department_id', $posting->department_id)
                 ->where('reference_code', 'like', "$prefix-$year-%")
                 ->selectRaw("COALESCE(MAX(CAST(SUBSTRING(reference_code FROM '[0-9]{3}$') AS INTEGER)), 0) AS sequence")
@@ -71,6 +78,15 @@ class JobPosting extends Model implements HasMedia
 
             $posting->reference_code = sprintf('%s-%d-%03d', $prefix, $year, $maxSequence + 1);
         });
+    }
+
+    public function save(array $options = []): bool
+    {
+        if ($this->exists) {
+            return parent::save($options);
+        }
+
+        return DB::transaction(fn (): bool => parent::save($options));
     }
 
     public function department()

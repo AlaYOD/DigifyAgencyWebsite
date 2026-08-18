@@ -62,6 +62,18 @@ it('writes one immutable transition per changed drag', function () {
         ->toBe([$hr->id, $hr->id]);
 });
 
+it('writes no transition when a drag keeps the same stage', function () {
+    $hr = User::where('email', 'hr@digify.test')->firstOrFail();
+    $application = JobApplication::factory()->forDepartment('engineering')->create();
+
+    Auth::login($hr);
+    $board = new ApplicationsBoard;
+    $board->mount();
+    $board->moveApplication($application->id, $application->pipeline_stage_id);
+
+    expect(StageTransition::where('job_application_id', $application->id)->count())->toBe(0);
+});
+
 it('loads a board with a constant eager-loaded query count', function () {
     $hr = User::where('email', 'hr@digify.test')->firstOrFail();
     JobApplication::factory()->forDepartment('engineering')->count(20)->create();

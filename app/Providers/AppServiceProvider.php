@@ -35,6 +35,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (app()->environment('production') && config('mail.default') === 'log') {
+            throw new \RuntimeException('The log mailer is forbidden in production. Configure Postmark or Resend.');
+        }
+
         JobPosting::observe(JobPostingObserver::class);
 
         Gate::policy(JobPosting::class, JobPostingPolicy::class);
