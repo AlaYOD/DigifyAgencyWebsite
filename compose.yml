@@ -1,0 +1,43 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www
+    ports:
+      - "8000:8000"
+    depends_on:
+      - pgsql
+      - redis
+    command: ["tail", "-f", "/dev/null"]
+
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - pgsql
+      - redis
+    command: ["php", "artisan", "queue:work", "--tries=3", "--backoff=10"]
+
+  pgsql:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: digify
+      POSTGRES_USER: digify
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+volumes:
+  pgdata:

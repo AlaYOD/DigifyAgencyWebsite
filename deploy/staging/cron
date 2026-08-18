@@ -1,0 +1,2 @@
+0 * * * * www-data cd /var/www && /usr/bin/php artisan schedule:run >> /var/log/digify-scheduler.log 2>&1
+0 2 * * * www-data /var/www/deploy/staging/backup.sh
