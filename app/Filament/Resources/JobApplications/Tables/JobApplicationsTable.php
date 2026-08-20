@@ -11,11 +11,13 @@ use Filament\Actions\BulkAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -24,7 +26,7 @@ class JobApplicationsTable
 {
     public static function configure(Table $table): Table
     {
-        $canSeePii = fn (): bool => auth()->user()?->can('applications.viewPii') ?? false;
+        $canSeePii = fn (): bool => auth()->user()->can('applications.viewPii');
 
         return $table
             ->columns([
@@ -34,11 +36,11 @@ class JobApplicationsTable
                         : "Candidate #{$record->id}"),
                 TextColumn::make('jobPosting.reference_code')->label('Reference'),
                 TextColumn::make('pipelineStage.name')->badge()
-                    ->color(fn (JobApplication $record): string => $record->pipelineStage?->color ?? 'gray'),
+                    ->color(fn (JobApplication $record): string => (string) data_get($record->getRelation('pipelineStage'), 'color', 'gray')),
                 TextColumn::make('ai_score')->sortable(),
                 TextColumn::make('rating'),
                 TextColumn::make('applied_at')->dateTime()->sortable(),
-                TextColumn::make('is_read')->boolean(),
+                IconColumn::make('is_read')->boolean(),
                 TextColumn::make('email')->visible($canSeePii),
                 TextColumn::make('phone')->visible($canSeePii),
             ])
@@ -76,7 +78,7 @@ class JobApplicationsTable
                         now()->addMinutes(15),
                         ['application' => $record],
                     ))
-                    ->visible(fn (JobApplication $record): bool => auth()->user()?->can('viewPii', $record) ?? false)
+                    ->visible(fn (JobApplication $record): bool => auth()->user()->can('viewPii', $record))
                     ->openUrlInNewTab(),
                 Action::make('changeStage')
                     ->form([
@@ -86,7 +88,7 @@ class JobApplicationsTable
                             ])->all())
                             ->required(),
                     ])
-                    ->visible(fn (JobApplication $record): bool => auth()->user()?->can('move', $record) ?? false)
+                    ->visible(fn (JobApplication $record): bool => auth()->user()->can('move', $record))
                     ->action(function (JobApplication $record, array $data): void {
                         if ((int) $record->pipeline_stage_id === (int) $data['pipeline_stage_id']) {
                             return;
@@ -107,18 +109,22 @@ class JobApplicationsTable
             ->toolbarActions([
                 BulkActionGroup::make([
                     BulkAction::make('export')
-                        ->visible(fn (): bool => (auth()->user()?->hasAnyRole(['ceo', 'hr']) ?? false)
-                            && (auth()->user()?->can('applications.export') ?? false))
-                        ->action(function (\Illuminate\Database\Eloquent\Collection $records): StreamedResponse {
+                        ->visible(fn (): bool => auth()->user()->hasAnyRole(['ceo', 'hr'])
+                            && auth()->user()->can('applications.export'))
+                        ->action(function (Collection $records): StreamedResponse {
                             return response()->streamDownload(function () use ($records): void {
                                 $handle = fopen('php://output', 'w');
                                 fputcsv($handle, ['id', 'display_name', 'reference', 'stage', 'applied_at']);
                                 foreach ($records as $record) {
+                                    if (! $record instanceof JobApplication) {
+                                        continue;
+                                    }
+
                                     fputcsv($handle, [
                                         $record->id,
                                         $record->display_name,
-                                        $record->jobPosting?->reference_code,
-                                        $record->pipelineStage?->key,
+                                        $record->jobPosting->reference_code,
+                                        data_get($record->getRelation('pipelineStage'), 'key'),
                                         $record->applied_at,
                                     ]);
                                 }

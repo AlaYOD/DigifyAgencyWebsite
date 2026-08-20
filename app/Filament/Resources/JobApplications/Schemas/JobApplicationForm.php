@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\JobApplications\Schemas;
 
+use App\Models\JobApplication;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -16,7 +17,7 @@ class JobApplicationForm
             Section::make('Candidate details')
                 ->schema([
                     Placeholder::make('candidate_name')
-                        ->content(fn ($record): string => $record?->display_name ?? ''),
+                        ->content(fn (JobApplication $record): string => $record->display_name),
                     TextInput::make('email')->email(),
                     TextInput::make('phone'),
                 ])
@@ -26,10 +27,13 @@ class JobApplicationForm
                     Textarea::make('cover_letter')->disabled(),
                     TextInput::make('portfolio_url')->url()->disabled(),
                     TextInput::make('linkedin_url')->url()->disabled(),
-                    TextInput::make('rating')
-                        ->numeric()->minValue(1)->maxValue(5)
-                        ->visible(fn (): bool => auth()->user()?->can('applications.note') ?? false),
-                ]),
+                ])
+                ->visible(fn (): bool => auth()->user()?->can('applications.viewPii') ?? false),
+            Section::make('Review')
+                ->schema([
+                    TextInput::make('rating')->numeric()->minValue(1)->maxValue(5),
+                ])
+                ->visible(fn (): bool => auth()->user()?->can('applications.note') ?? false),
             Section::make('AI summary')
                 ->description('Machine-generated placeholder; scoring is not available in this sprint.')
                 ->schema([

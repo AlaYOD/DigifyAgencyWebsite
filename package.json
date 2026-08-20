@@ -4,6 +4,7 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
+        "build:ssr": "vite build --ssr resources/js/ssr.tsx --outDir bootstrap/ssr",
         "dev": "vite"
     },
     "devDependencies": {

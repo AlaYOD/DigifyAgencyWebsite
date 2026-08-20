@@ -125,7 +125,7 @@ class ApplicationsBoard extends Page
                     'display_name' => auth()->user()->can('viewPii', $application)
                         ? $application->display_name
                         : "Candidate #{$application->id}",
-                    'reference_code' => $application->jobPosting?->reference_code,
+                    'reference_code' => $application->jobPosting->reference_code,
                     'ai_score' => $application->ai_score,
                     'rating' => $application->rating,
                     'applied_at' => $application->applied_at?->diffForHumans(),

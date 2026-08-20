@@ -36,7 +36,7 @@ class JobPostingResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->visibleTo(auth()->user());
+        return (new JobPosting)->scopeVisibleTo(parent::getEloquentQuery(), auth()->user());
     }
 
     public static function form(Schema $schema): Schema

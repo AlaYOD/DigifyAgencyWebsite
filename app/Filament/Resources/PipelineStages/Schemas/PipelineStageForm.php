@@ -4,9 +4,9 @@ namespace App\Filament\Resources\PipelineStages\Schemas;
 
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Schema;
 
 class PipelineStageForm

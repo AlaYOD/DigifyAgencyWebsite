@@ -10,10 +10,12 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
-    // SSR is deliberately deferred; this sprint builds the client only.
     server: {
         watch: {
             ignored: ['**/storage/framework/views/**'],
         },
+    },
+    ssr: {
+        noExternal: ['@inertiajs/react'],
     },
 });

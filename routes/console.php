@@ -9,3 +9,4 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('careers:close-expired')->hourly();
+Schedule::command('forms:purge-expired')->dailyAt('02:30')->withoutOverlapping();

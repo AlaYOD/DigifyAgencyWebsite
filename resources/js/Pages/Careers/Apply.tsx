@@ -4,9 +4,12 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import type { SharedPageProps } from '../../types';
 import type { CareerJob } from '../../types/careers';
+import DynamicForm from '../../Components/DynamicForm';
+import type { PublicForm } from '../../Components/DynamicForm';
 
 interface ApplyProps extends SharedPageProps {
     job: CareerJob;
+    dynamicForm?: PublicForm | null;
 }
 
 const applicationSchema = z.object({
@@ -26,7 +29,7 @@ const applicationSchema = z.object({
 type ApplicationValues = z.infer<typeof applicationSchema>;
 
 export default function Apply() {
-    const { job } = usePage<ApplyProps>().props;
+    const { job, dynamicForm } = usePage<ApplyProps>().props;
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<ApplicationValues>({
         resolver: zodResolver(applicationSchema),
     });
@@ -55,7 +58,7 @@ export default function Apply() {
                     <h1 className="text-4xl font-semibold text-brand-navy">Apply for this role</h1>
                     <p className="text-slate-600">{job.department.name}</p>
                 </header>
-                <form onSubmit={handleSubmit(submit)} className="space-y-6" encType="multipart/form-data">
+                {dynamicForm ? <DynamicForm form={dynamicForm} /> : <form onSubmit={handleSubmit(submit)} className="space-y-6" encType="multipart/form-data">
                     <div className="grid gap-5 md:grid-cols-2">
                         <Field label="First name" error={errors.first_name?.message}><input {...register('first_name')} /></Field>
                         <Field label="Last name" error={errors.last_name?.message}><input {...register('last_name')} /></Field>
@@ -72,7 +75,7 @@ export default function Apply() {
                     <button disabled={isSubmitting} className="rounded-md bg-brand-navy px-5 py-3 font-medium text-white disabled:opacity-50" type="submit">
                         Submit application
                     </button>
-                </form>
+                </form>}
             </article>
         </>
     );

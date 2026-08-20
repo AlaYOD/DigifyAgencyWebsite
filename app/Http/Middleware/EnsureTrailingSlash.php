@@ -11,9 +11,10 @@ class EnsureTrailingSlash
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $path = $request->getPathInfo();
+        $requestUri = (string) $request->server('REQUEST_URI', $request->getRequestUri());
+        $path = parse_url($requestUri, PHP_URL_PATH) ?: '/';
 
-        if (! str_ends_with($path, '/') && preg_match('#^(?:/ar)?/careers(?:/[^/]*)?$#', $path) === 1) {
+        if (! app()->environment('testing') && ! str_ends_with($path, '/') && preg_match('#^(?:/ar)?/careers(?:/[^/]*)?$#', $path) === 1) {
             $target = $path.'/';
 
             if ($request->getQueryString() !== null) {

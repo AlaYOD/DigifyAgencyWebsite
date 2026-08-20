@@ -7,6 +7,7 @@ export default [
             'vendor/**',
             'storage/**',
             'bootstrap/cache/**',
+            'bootstrap/ssr/**',
             'eslint.config.js',
             'vite.config.js',
         ],
@@ -25,7 +26,7 @@ export default [
         },
         rules: {
             'no-restricted-syntax': ['error', {
-                selector: 'Literal[value=/\\b(pl|pr|ml|mr|text-left|text-right)-?\\w*/]',
+                selector: 'Literal[value=/(^|\\s)((pl|pr|ml|mr)-\\S+|text-(left|right))(\\s|$)/]',
                 message: 'Use logical properties - this project is RTL-first.',
             }],
         },

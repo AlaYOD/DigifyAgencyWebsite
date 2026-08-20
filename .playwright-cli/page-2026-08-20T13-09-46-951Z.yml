@@ -1,0 +1,270 @@
+- generic [active] [ref=f15e1]:
+  - link "Skip to content" [ref=f15e2] [cursor=pointer]:
+    - /url: "#fi-main-content"
+  - navigation "Topbar" [ref=f15e4]:
+    - link "Digify" [ref=f15e6] [cursor=pointer]:
+      - /url: http://127.0.0.1:8000/admin
+    - button "User menu" [ref=f15e11] [cursor=pointer]:
+      - img "Avatar of Demo IT" [ref=f15e12]
+  - generic [ref=f15e13]:
+    - navigation "Sidebar navigation" [ref=f15e16]:
+      - list [ref=f15e17]:
+        - listitem [ref=f15e18]:
+          - list [ref=f15e19]:
+            - listitem [ref=f15e20]:
+              - link "Dashboard" [ref=f15e21] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin
+        - listitem [ref=f15e25]:
+          - generic [ref=f15e26] [cursor=pointer]:
+            - generic [ref=f15e27]: Content
+            - button "Content" [expanded] [ref=f15e28]
+          - list [ref=f15e31]:
+            - listitem [ref=f15e32]:
+              - link "Categories" [ref=f15e33] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/categories
+            - listitem [ref=f15e37]:
+              - link "Media library" [ref=f15e38] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/media-assets
+            - listitem [ref=f15e42]:
+              - link "Menus" [ref=f15e43] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/menus
+            - listitem [ref=f15e47]:
+              - link "Pages" [ref=f15e48] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/pages
+            - listitem [ref=f15e52]:
+              - link "Posts" [ref=f15e53] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/posts
+            - listitem [ref=f15e57]:
+              - link "Projects" [ref=f15e58] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/projects
+            - listitem [ref=f15e62]:
+              - link "Tags" [ref=f15e63] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/tags
+        - listitem [ref=f15e68]:
+          - generic [ref=f15e69] [cursor=pointer]:
+            - generic [ref=f15e70]: Careers
+            - button "Careers" [expanded] [ref=f15e71]
+          - list [ref=f15e74]:
+            - listitem [ref=f15e75]:
+              - link "Applications Board" [ref=f15e76] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/applications-board
+            - listitem [ref=f15e80]:
+              - link "Departments" [ref=f15e81] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/departments
+            - listitem [ref=f15e85]:
+              - link "Job Applications" [ref=f15e86] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/job-applications
+            - listitem [ref=f15e90]:
+              - link "Job Postings" [ref=f15e91] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/job-postings
+        - listitem [ref=f15e95]:
+          - generic [ref=f15e96] [cursor=pointer]:
+            - generic [ref=f15e97]: Forms
+            - button "Forms" [expanded] [ref=f15e98]
+          - list [ref=f15e101]:
+            - listitem [ref=f15e102]:
+              - link "Form Submissions" [ref=f15e103] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/form-submissions
+            - listitem [ref=f15e107]:
+              - link "Forms" [ref=f15e108] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/forms
+        - listitem [ref=f15e112]:
+          - generic [ref=f15e113] [cursor=pointer]:
+            - generic [ref=f15e114]: System
+            - button "System" [expanded] [ref=f15e115]
+          - list [ref=f15e118]:
+            - listitem [ref=f15e119]:
+              - link "Site settings" [ref=f15e120] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/site-settings
+            - listitem [ref=f15e125]:
+              - link "Activity log" [ref=f15e126] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/activities
+            - listitem [ref=f15e130]:
+              - link "Locales" [ref=f15e131] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/locales
+            - listitem [ref=f15e135]:
+              - link "404 report" [ref=f15e136] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/redirect-misses
+            - listitem [ref=f15e140]:
+              - link "Redirects" [ref=f15e141] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/redirects
+            - listitem [ref=f15e145]:
+              - link "Users" [ref=f15e146] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/users
+    - main [ref=f15e151]:
+      - generic [ref=f15e153]:
+        - generic [ref=f15e155]:
+          - navigation "Breadcrumb" [ref=f15e156]:
+            - list [ref=f15e157]:
+              - listitem [ref=f15e158]:
+                - link "Forms" [ref=f15e159] [cursor=pointer]:
+                  - /url: http://127.0.0.1:8000/admin/forms
+              - listitem [ref=f15e160]:
+                - generic [ref=f15e163]: Create
+          - heading "Create Form" [level=1] [ref=f15e164]
+        - generic [ref=f15e170]:
+          - generic [ref=f15e174]:
+            - region [ref=f15e178]:
+              - heading "Form identity" [level=2] [ref=f15e181]
+              - generic [ref=f15e183]:
+                - generic [ref=f15e186]:
+                  - generic [ref=f15e190]:
+                    - text: Key
+                    - superscript [ref=f15e191]: "*"
+                  - textbox "Key*" [ref=f15e195]
+                - generic [ref=f15e198]:
+                  - generic [ref=f15e199]: Department id
+                  - generic [ref=f15e208]:
+                    - combobox "Department id" [ref=f15e209] [cursor=pointer]:
+                      - generic [ref=f15e210]: Select an option
+                    - status [ref=f15e212]
+                - generic [ref=f15e215]:
+                  - tablist "Translations" [ref=f15e216]:
+                    - tab "English" [selected] [ref=f15e217] [cursor=pointer]
+                    - tab "العربية" [ref=f15e219] [cursor=pointer]
+                  - tabpanel [ref=f15e221]:
+                    - generic [ref=f15e222]:
+                      - generic [ref=f15e225]:
+                        - generic [ref=f15e229]:
+                          - text: En
+                          - superscript [ref=f15e230]: "*"
+                        - textbox "En*" [ref=f15e234]
+                      - generic [ref=f15e237]:
+                        - generic [ref=f15e238]: En
+                        - textbox "En" [ref=f15e246]
+                      - generic [ref=f15e249]:
+                        - generic [ref=f15e253]:
+                          - text: En
+                          - superscript [ref=f15e254]: "*"
+                        - textbox "En*" [ref=f15e258]: Submit
+                      - generic [ref=f15e261]:
+                        - generic [ref=f15e265]:
+                          - text: En
+                          - superscript [ref=f15e266]: "*"
+                        - textbox "En*" [ref=f15e271]: Thank you. Your submission has been received.
+            - generic [ref=f15e274]:
+              - generic [ref=f15e275]: Form builder
+              - group "Form builder" [ref=f15e280]:
+                - list [ref=f15e281]:
+                  - listitem [ref=f15e282]:
+                    - generic [ref=f15e283] [cursor=pointer]:
+                      - list [ref=f15e284]:
+                        - listitem [ref=f15e285]:
+                          - button "Move" [ref=f15e286]
+                      - list [ref=f15e289]:
+                        - listitem [ref=f15e290]:
+                          - button "Clone" [ref=f15e291]
+                        - listitem [ref=f15e295]:
+                          - button "Delete" [ref=f15e296]
+                        - listitem [ref=f15e299]:
+                          - button "Collapse" [ref=f15e301]
+                          - generic:
+                            - button "Expand"
+                    - generic [ref=f15e305]:
+                      - generic [ref=f15e308]:
+                        - generic [ref=f15e312]:
+                          - text: Key
+                          - superscript [ref=f15e313]: "*"
+                        - textbox "Key*" [ref=f15e317]
+                      - generic [ref=f15e320]:
+                        - generic [ref=f15e324]:
+                          - text: Type
+                          - superscript [ref=f15e325]: "*"
+                        - combobox "Type*" [ref=f15e329]:
+                          - option "Select an option" [selected]
+                          - option "Text"
+                          - option "Textarea"
+                          - option "Email"
+                          - option "Tel"
+                          - option "Number"
+                          - option "Date"
+                          - option "Select"
+                          - option "Multiselect"
+                          - option "Radio"
+                          - option "Checkbox"
+                          - option "File"
+                          - option "Heading"
+                          - option "Paragraph"
+                      - generic [ref=f15e332]:
+                        - generic [ref=f15e336]:
+                          - text: Label (English)
+                          - superscript [ref=f15e337]: "*"
+                        - textbox "Label (English)*" [ref=f15e341]
+                      - generic [ref=f15e344]:
+                        - generic [ref=f15e348]:
+                          - text: Label (العربية)
+                          - superscript [ref=f15e349]: "*"
+                        - textbox "Label (العربية)*" [ref=f15e353]
+                      - generic [ref=f15e356]:
+                        - generic [ref=f15e357]: Placeholder (English)
+                        - textbox "Placeholder (English)" [ref=f15e364]
+                      - generic [ref=f15e367]:
+                        - generic [ref=f15e368]: Placeholder (العربية)
+                        - textbox "Placeholder (العربية)" [ref=f15e375]
+                      - generic [ref=f15e378]:
+                        - generic [ref=f15e379]: Help text (English)
+                        - textbox "Help text (English)" [ref=f15e387]
+                      - generic [ref=f15e390]:
+                        - generic [ref=f15e391]: Help text (العربية)
+                        - textbox "Help text (العربية)" [ref=f15e399]
+                      - generic [ref=f15e402]:
+                        - generic [ref=f15e403]: Rules
+                        - generic [ref=f15e407]:
+                          - combobox "Rules" [ref=f15e411]
+                          - generic [ref=f15e413]: These Laravel-compatible rules are also sent to the browser schema.
+                      - generic [ref=f15e419]:
+                        - generic [ref=f15e423]:
+                          - text: Width
+                          - superscript [ref=f15e424]: "*"
+                        - combobox "Width*" [ref=f15e428]:
+                          - option "Select an option"
+                          - option "Full" [selected]
+                          - option "Half"
+                          - option "Third"
+                          - option "Two thirds"
+                      - generic [ref=f15e431]:
+                        - generic [ref=f15e432]: Show when field
+                        - textbox "Show when field" [ref=f15e439]
+                      - generic [ref=f15e442]:
+                        - generic [ref=f15e443]: Operator
+                        - combobox "Operator" [ref=f15e450]:
+                          - option "Select an option"
+                          - option "Equals" [selected]
+                          - option "Does not equal"
+                          - option "Contains"
+                      - generic [ref=f15e453]:
+                        - generic [ref=f15e454]: Condition value
+                        - textbox "Condition value" [ref=f15e461]
+                - button "Add to form builder" [ref=f15e463] [cursor=pointer]
+            - region [ref=f15e467]:
+              - heading "Delivery and retention" [level=2] [ref=f15e470]
+              - generic [ref=f15e472]:
+                - generic [ref=f15e475]:
+                  - generic [ref=f15e476]: Notify emails
+                  - combobox "Notify emails" [ref=f15e484]
+                - generic [ref=f15e488]:
+                  - generic [ref=f15e489]: Webhook url
+                  - textbox "Webhook url" [ref=f15e496]
+                - generic [ref=f15e499]:
+                  - generic [ref=f15e500]: Redirect url
+                  - textbox "Redirect url" [ref=f15e507]
+                - generic [ref=f15e510]:
+                  - generic [ref=f15e514]:
+                    - text: Retention days
+                    - superscript [ref=f15e515]: "*"
+                  - spinbutton "Retention days*" [ref=f15e519]: "730"
+                - generic [ref=f15e525]:
+                  - switch "Stores submissions" [checked] [ref=f15e526] [cursor=pointer]
+                  - generic [ref=f15e527]: Stores submissions
+                - generic [ref=f15e533]:
+                  - switch "Captcha enabled" [ref=f15e534] [cursor=pointer]
+                  - generic [ref=f15e535]: Captcha enabled
+                - generic [ref=f15e541]:
+                  - switch "Is active" [checked] [ref=f15e542] [cursor=pointer]
+                  - generic [ref=f15e543]: Is active
+          - generic [ref=f15e548]:
+            - button "Create" [ref=f15e549] [cursor=pointer]
+            - button "Create & create another" [ref=f15e551] [cursor=pointer]
+            - button "Cancel" [ref=f15e552] [cursor=pointer]
+  - generic:
+    - status

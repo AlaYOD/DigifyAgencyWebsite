@@ -17,6 +17,7 @@ class DemoUserSeeder extends Seeder
             ['name' => 'Demo Manager', 'email' => 'manager@digify.test', 'role' => 'manager', 'department_id' => $engineering->id],
             ['name' => 'Demo HR', 'email' => 'hr@digify.test', 'role' => 'hr'],
             ['name' => 'Demo IT', 'email' => 'it@digify.test', 'role' => 'it'],
+            ['name' => 'Demo Content Editor', 'email' => 'editor@digify.test', 'role' => 'content_editor'],
         ];
 
         foreach ($users as $attributes) {

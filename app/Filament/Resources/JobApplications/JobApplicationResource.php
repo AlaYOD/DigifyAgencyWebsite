@@ -29,9 +29,14 @@ class JobApplicationResource extends Resource
         return auth()->user()?->can('applications.view') ?? false;
     }
 
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->visibleTo(auth()->user());
+        return (new JobApplication)->scopeVisibleTo(parent::getEloquentQuery(), auth()->user());
     }
 
     public static function form(Schema $schema): Schema

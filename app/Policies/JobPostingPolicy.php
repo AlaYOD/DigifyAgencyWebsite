@@ -17,9 +17,9 @@ class JobPostingPolicy
         return $user->can('jobs.view') && $this->inScope($user, $posting);
     }
 
-    public function create(User $user, JobPosting $posting): bool
+    public function create(User $user, ?JobPosting $posting = null): bool
     {
-        return $user->can('jobs.create') && $this->inScope($user, $posting);
+        return $user->can('jobs.create') && ($posting === null || $this->inScope($user, $posting));
     }
 
     public function update(User $user, JobPosting $posting): bool
@@ -44,7 +44,7 @@ class JobPostingPolicy
 
     private function inScope(User $user, JobPosting $posting): bool
     {
-        if ($user->hasAnyRole(['ceo', 'hr'])) {
+        if ($user->hasAnyRole(['ceo', 'hr', 'it'])) {
             return true;
         }
 

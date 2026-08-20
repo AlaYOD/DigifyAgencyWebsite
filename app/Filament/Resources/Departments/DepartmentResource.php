@@ -24,7 +24,7 @@ class DepartmentResource extends Resource
 
     public static function canAccess(): bool
     {
-        return auth()->user()?->hasRole('hr') ?? false;
+        return auth()->user()?->can('departments.manage') ?? false;
     }
 
     public static function form(Schema $schema): Schema

@@ -3,6 +3,9 @@
 namespace App\Http\Middleware;
 
 use App\Models\Locale;
+use App\Models\Menu;
+use App\Services\MenuResolver;
+use App\Settings\SiteSettings;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -17,13 +20,17 @@ class HandleInertiaRequests extends Middleware
                 ->where('is_active', true)
                 ->orderBy('sort_order')
                 ->get(['code', 'native_name', 'direction']),
-            'settings' => [
-                'site_name' => 'Digify',
-                'contact_email' => 'hello@digify.test',
+            'settings' => fn (): array => [
+                'site_name' => app(SiteSettings::class)->site_name,
+                'contact_email' => app(SiteSettings::class)->contact_email,
             ],
+            'menus' => fn (): array => Menu::query()->get()->mapWithKeys(fn (Menu $menu): array => [
+                $menu->key => app(MenuResolver::class)->resolve($menu, app()->getLocale()),
+            ])->all(),
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),
+                'form_success' => fn () => $request->session()->get('form_success'),
             ],
         ];
     }

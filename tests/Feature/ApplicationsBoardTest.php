@@ -2,6 +2,7 @@
 
 use App\Filament\Pages\ApplicationsBoard;
 use App\Models\JobApplication;
+use App\Models\PipelineStage;
 use App\Models\StageTransition;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -48,8 +49,8 @@ it('limits a manager board to managed departments', function () {
 it('writes one immutable transition per changed drag', function () {
     $hr = User::where('email', 'hr@digify.test')->firstOrFail();
     $application = JobApplication::factory()->forDepartment('engineering')->create();
-    $screening = \App\Models\PipelineStage::where('key', 'screening')->value('id');
-    $interview = \App\Models\PipelineStage::where('key', 'interview')->value('id');
+    $screening = PipelineStage::where('key', 'screening')->value('id');
+    $interview = PipelineStage::where('key', 'interview')->value('id');
 
     Auth::login($hr);
     $board = new ApplicationsBoard;

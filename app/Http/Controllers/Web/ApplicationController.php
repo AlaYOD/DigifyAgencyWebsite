@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreApplicationRequest;
 use App\Http\Resources\CareerPostingResource;
+use App\Http\Resources\PublicFormResource;
 use App\Mail\ApplicationReceived;
 use App\Mail\NewApplication;
 use App\Models\JobApplication;
 use App\Models\JobPosting;
 use App\Models\PipelineStage;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -23,10 +24,18 @@ class ApplicationController extends Controller
 {
     public function create(string $slug): Response
     {
-        $job = $this->publishedJob($slug);
+        $job = $this->publishedJob($slug)->load('form.fields');
+
+        $dynamicForm = $job->form ? (new PublicFormResource($job->form))->resolve(request()) : null;
+        if ($dynamicForm) {
+            $dynamicForm['action'] = route(app()->getLocale() === 'ar' ? 'careers.ar.dynamic-apply' : 'careers.dynamic-apply', [
+                'slug' => $job->getTranslation('slug', app()->getLocale()), 'form' => $job->form,
+            ], false);
+        }
 
         return Inertia::render('Careers/Apply', [
             'job' => CareerPostingResource::make($job),
+            'dynamicForm' => $dynamicForm,
         ]);
     }
 
@@ -120,15 +129,15 @@ class ApplicationController extends Controller
             ->firstOrFail();
     }
 
-    private function queueMail(string $recipient, \Illuminate\Mail\Mailable $mail): void
+    private function queueMail(string $recipient, ApplicationReceived|NewApplication $mail): void
     {
         try {
             Mail::to($recipient)->queue($mail);
         } catch (\Throwable $exception) {
             Log::error('Application email dispatch failed.', [
                 'application_id' => $mail->application->id,
-                'recipient' => $recipient,
-                'exception' => $exception,
+                'recipient_type' => $recipient === $mail->application->email ? 'candidate' : 'internal',
+                'exception_class' => $exception::class,
             ]);
         }
     }

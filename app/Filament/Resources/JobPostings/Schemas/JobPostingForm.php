@@ -7,7 +7,8 @@ use App\Enums\ExperienceLevel;
 use App\Enums\JobStatus;
 use App\Enums\SalaryPeriod;
 use App\Enums\WorkplaceType;
-use App\Models\Department;
+use App\Filament\Support\AdminOptions;
+use App\Models\Form;
 use Closure;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -48,10 +49,27 @@ class JobPostingForm
                     ]),
                 ]),
                 Select::make('department_id')
-                    ->options(fn (): array => Department::all()->mapWithKeys(fn (Department $department): array => [
-                        $department->id => $department->getTranslation('name', 'en'),
-                    ])->all())
+                    ->options(AdminOptions::departments())
                     ->searchable()->required()->translateLabel(),
+                Select::make('form_id')
+                    ->label('Application form')
+                    ->options(fn (): array => Form::query()->visibleTo(auth()->user())->where('is_active', true)->get()->mapWithKeys(fn (Form $form): array => [
+                        $form->id => $form->getTranslation('name', 'en'),
+                    ])->all())
+                    ->searchable()
+                    ->rules([function (): Closure {
+                        return function (string $attribute, mixed $value, Closure $fail): void {
+                            if (blank($value)) {
+                                return;
+                            }
+                            $form = Form::with('fields')->find($value);
+                            $keys = $form?->fields->pluck('key') ?? collect();
+                            if (! $keys->contains('email') || (! $keys->contains('full_name') && ! ($keys->contains('first_name') && $keys->contains('last_name')))) {
+                                $fail('Career forms must contain email and either full_name or both first_name and last_name fields.');
+                            }
+                        };
+                    }])
+                    ->helperText('Optional: associate this vacancy with a reusable dynamic form.'),
                 Select::make('employment_type')->options(self::enumOptions(EmploymentType::class))->required()->translateLabel(),
                 Select::make('workplace_type')->options(self::enumOptions(WorkplaceType::class))->required()->translateLabel(),
                 Select::make('experience_level')->options(self::enumOptions(ExperienceLevel::class))->required()->translateLabel(),

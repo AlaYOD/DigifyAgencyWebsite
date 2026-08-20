@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Department;
 use App\Models\JobApplication;
 use App\Models\JobPosting;
 use App\Models\PipelineStage;
@@ -38,7 +39,7 @@ it('records both concurrent stage moves as immutable transitions', function (): 
 });
 
 it('generates distinct reference codes for postings created in one department', function (): void {
-    $departmentId = App\Models\Department::where('slug->en', 'engineering')->value('id');
+    $departmentId = Department::where('slug->en', 'engineering')->value('id');
 
     $first = JobPosting::factory()->create(['department_id' => $departmentId]);
     $second = JobPosting::factory()->create(['department_id' => $departmentId]);

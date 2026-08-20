@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             LocaleSeeder::class,
             DepartmentSeeder::class,
             RolePermissionSeeder::class,
+            CmsStarterSeeder::class,
             DemoUserSeeder::class,
             PipelineStageSeeder::class,
         ]);

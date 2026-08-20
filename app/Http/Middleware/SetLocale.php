@@ -17,7 +17,7 @@ class SetLocale
             ->where('is_active', true)
             ->first();
 
-        app()->setLocale($locale?->code ?? 'en');
+        app()->setLocale($locale instanceof Locale ? $locale->code : 'en');
 
         return $next($request);
     }

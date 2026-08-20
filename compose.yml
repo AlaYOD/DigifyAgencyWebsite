@@ -10,7 +10,13 @@ services:
     depends_on:
       - pgsql
       - redis
-    command: ["tail", "-f", "/dev/null"]
+      - ssr
+    environment:
+      INERTIA_SSR_ENABLED: "true"
+      INERTIA_SSR_URL: http://ssr:13714
+      INERTIA_SSR_THROW_ON_ERROR: "true"
+      PHP_CLI_SERVER_WORKERS: "4"
+    command: ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000", "--no-reload"]
 
   queue:
     build:
@@ -22,6 +28,17 @@ services:
       - pgsql
       - redis
     command: ["php", "artisan", "queue:work", "--tries=3", "--backoff=10"]
+
+  ssr:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - pgsql
+      - redis
+    command: ["php", "artisan", "inertia:start-ssr"]
 
   pgsql:
     image: postgres:16-alpine

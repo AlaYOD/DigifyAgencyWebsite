@@ -12,4 +12,21 @@ export interface SharedPageProps extends PageProps {
         site_name: string;
         contact_email: string;
     };
+    flash: {
+        success?: string;
+        error?: string;
+        form_success?: string;
+    };
+    menus: Record<string, {
+        key: string;
+        name: string;
+        items: Array<{
+            id: number;
+            label: string;
+            url: string;
+            target: 'same' | 'new';
+            icon?: string;
+            children: Array<unknown>;
+        }>;
+    }>;
 }

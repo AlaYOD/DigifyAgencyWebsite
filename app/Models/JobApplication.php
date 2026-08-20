@@ -5,18 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
+/**
+ * @property Carbon|null $applied_at
+ * @property-read JobPosting $jobPosting
+ * @property-read PipelineStage|null $pipelineStage
+ */
 class JobApplication extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes, InteractsWithMedia, LogsActivity;
+    use HasFactory, InteractsWithMedia, LogsActivity, SoftDeletes;
 
     protected $fillable = [
-        'job_posting_id', 'pipeline_stage_id', 'first_name', 'last_name', 'email', 'phone',
+        'job_posting_id', 'form_submission_id', 'pipeline_stage_id', 'first_name', 'last_name', 'email', 'phone',
         'cover_letter', 'portfolio_url', 'linkedin_url', 'locale', 'source', 'ai_score',
         'ai_summary', 'rating', 'is_read', 'applied_at',
     ];
@@ -32,22 +40,27 @@ class JobApplication extends Model implements HasMedia
         ];
     }
 
-    public function jobPosting()
+    public function jobPosting(): BelongsTo
     {
-        return $this->belongsTo(JobPosting::class);
+        return $this->belongsTo(JobPosting::class)->withTrashed();
     }
 
-    public function pipelineStage()
+    public function pipelineStage(): BelongsTo
     {
         return $this->belongsTo(PipelineStage::class);
     }
 
-    public function transitions()
+    public function formSubmission(): BelongsTo
+    {
+        return $this->belongsTo(FormSubmission::class);
+    }
+
+    public function transitions(): HasMany
     {
         return $this->hasMany(StageTransition::class);
     }
 
-    public function notes()
+    public function notes(): HasMany
     {
         return $this->hasMany(ApplicationNote::class);
     }

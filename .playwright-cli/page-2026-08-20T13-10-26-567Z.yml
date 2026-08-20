@@ -1,0 +1,149 @@
+- generic [active] [ref=f16e1]:
+  - link "Skip to content" [ref=f16e2] [cursor=pointer]:
+    - /url: "#fi-main-content"
+  - navigation "Topbar" [ref=f16e4]:
+    - link "Digify" [ref=f16e6] [cursor=pointer]:
+      - /url: http://127.0.0.1:8000/admin
+    - button "User menu" [ref=f16e11] [cursor=pointer]:
+      - img "Avatar of Demo IT" [ref=f16e12]
+  - generic [ref=f16e13]:
+    - navigation "Sidebar navigation" [ref=f16e16]:
+      - list [ref=f16e17]:
+        - listitem [ref=f16e18]:
+          - list [ref=f16e19]:
+            - listitem [ref=f16e20]:
+              - link "Dashboard" [ref=f16e21] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin
+        - listitem [ref=f16e25]:
+          - generic [ref=f16e26] [cursor=pointer]:
+            - generic [ref=f16e27]: Content
+            - button "Content" [expanded] [ref=f16e28]
+          - list [ref=f16e31]:
+            - listitem [ref=f16e32]:
+              - link "Categories" [ref=f16e33] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/categories
+            - listitem [ref=f16e37]:
+              - link "Media library" [ref=f16e38] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/media-assets
+            - listitem [ref=f16e42]:
+              - link "Menus" [ref=f16e43] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/menus
+            - listitem [ref=f16e47]:
+              - link "Pages" [ref=f16e48] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/pages
+            - listitem [ref=f16e52]:
+              - link "Posts" [ref=f16e53] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/posts
+            - listitem [ref=f16e57]:
+              - link "Projects" [ref=f16e58] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/projects
+            - listitem [ref=f16e62]:
+              - link "Tags" [ref=f16e63] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/tags
+        - listitem [ref=f16e68]:
+          - generic [ref=f16e69] [cursor=pointer]:
+            - generic [ref=f16e70]: Careers
+            - button "Careers" [expanded] [ref=f16e71]
+          - list [ref=f16e74]:
+            - listitem [ref=f16e75]:
+              - link "Applications Board" [ref=f16e76] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/applications-board
+            - listitem [ref=f16e80]:
+              - link "Departments" [ref=f16e81] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/departments
+            - listitem [ref=f16e85]:
+              - link "Job Applications" [ref=f16e86] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/job-applications
+            - listitem [ref=f16e90]:
+              - link "Job Postings" [ref=f16e91] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/job-postings
+        - listitem [ref=f16e95]:
+          - generic [ref=f16e96] [cursor=pointer]:
+            - generic [ref=f16e97]: Forms
+            - button "Forms" [expanded] [ref=f16e98]
+          - list [ref=f16e101]:
+            - listitem [ref=f16e102]:
+              - link "Form Submissions" [ref=f16e103] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/form-submissions
+            - listitem [ref=f16e107]:
+              - link "Forms" [ref=f16e108] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/forms
+        - listitem [ref=f16e112]:
+          - generic [ref=f16e113] [cursor=pointer]:
+            - generic [ref=f16e114]: System
+            - button "System" [expanded] [ref=f16e115]
+          - list [ref=f16e118]:
+            - listitem [ref=f16e119]:
+              - link "Site settings" [ref=f16e120] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/site-settings
+            - listitem [ref=f16e125]:
+              - link "Activity log" [ref=f16e126] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/activities
+            - listitem [ref=f16e130]:
+              - link "Locales" [ref=f16e131] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/locales
+            - listitem [ref=f16e135]:
+              - link "404 report" [ref=f16e136] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/redirect-misses
+            - listitem [ref=f16e140]:
+              - link "Redirects" [ref=f16e141] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/redirects
+            - listitem [ref=f16e145]:
+              - link "Users" [ref=f16e146] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/users
+    - main [ref=f16e151]:
+      - generic [ref=f16e153]:
+        - heading "Site settings" [level=1] [ref=f16e156]
+        - generic [ref=f16e159]:
+          - generic [ref=f16e160]:
+            - region [ref=f16e164]:
+              - heading "Identity" [level=2] [ref=f16e167]
+              - generic [ref=f16e169]:
+                - generic [ref=f16e172]:
+                  - generic [ref=f16e176]:
+                    - text: Site name
+                    - superscript [ref=f16e177]: "*"
+                  - textbox "Site name*" [ref=f16e181]: Digify
+                - generic [ref=f16e184]:
+                  - generic [ref=f16e188]:
+                    - text: Contact email
+                    - superscript [ref=f16e189]: "*"
+                  - textbox "Contact email*" [ref=f16e193]: hello@digify.agency
+                - generic [ref=f16e196]:
+                  - tablist "Localized copy" [ref=f16e197]:
+                    - tab "English" [selected] [ref=f16e198] [cursor=pointer]
+                    - tab "العربية" [ref=f16e200] [cursor=pointer]
+                  - tabpanel [ref=f16e202]:
+                    - generic [ref=f16e203]:
+                      - generic [ref=f16e206]:
+                        - generic [ref=f16e207]: En
+                        - textbox "En" [ref=f16e214]: Digital experiences with impact
+                      - generic [ref=f16e217]:
+                        - generic [ref=f16e218]: En
+                        - textbox "En" [ref=f16e226]
+            - region [ref=f16e230]:
+              - heading "Localization and privacy" [level=2] [ref=f16e233]
+              - generic [ref=f16e235]:
+                - generic [ref=f16e238]:
+                  - generic [ref=f16e242]:
+                    - text: Default locale
+                    - superscript [ref=f16e243]: "*"
+                  - textbox "Default locale*" [ref=f16e247]: en
+                - generic [ref=f16e250]:
+                  - generic [ref=f16e254]:
+                    - text: Fallback locale
+                    - superscript [ref=f16e255]: "*"
+                  - textbox "Fallback locale*" [ref=f16e259]: en
+                - generic [ref=f16e265]:
+                  - switch "Analytics enabled" [ref=f16e266] [cursor=pointer]
+                  - generic [ref=f16e267]: Analytics enabled
+                - generic [ref=f16e273]:
+                  - switch "Cookie consent enabled" [checked] [ref=f16e274] [cursor=pointer]
+                  - generic [ref=f16e275]: Cookie consent enabled
+            - generic [ref=f16e278]:
+              - generic [ref=f16e279]: Social links
+              - group "Social links" [ref=f16e284]:
+                - button "Add to social links" [ref=f16e286] [cursor=pointer]
+          - button "Save settings" [ref=f16e287] [cursor=pointer]
+  - generic:
+    - status

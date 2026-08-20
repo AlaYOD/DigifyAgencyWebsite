@@ -1,0 +1,182 @@
+- generic [ref=f11e1]:
+  - link "Skip to content" [ref=f11e2] [cursor=pointer]:
+    - /url: "#fi-main-content"
+  - navigation "Topbar" [ref=f11e4]:
+    - link "Digify" [ref=f11e6] [cursor=pointer]:
+      - /url: http://127.0.0.1:8000/admin
+    - button "User menu" [active] [ref=f11e11] [cursor=pointer]:
+      - img "Avatar of Demo CEO" [ref=f11e12]
+  - generic [ref=f11e13]:
+    - navigation "Sidebar navigation" [ref=f11e16]:
+      - list [ref=f11e17]:
+        - listitem [ref=f11e18]:
+          - list [ref=f11e19]:
+            - listitem [ref=f11e20]:
+              - link "Dashboard" [ref=f11e21] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin
+        - listitem [ref=f11e25]:
+          - generic [ref=f11e26] [cursor=pointer]:
+            - generic [ref=f11e27]: Content
+            - button "Content" [expanded] [ref=f11e28]
+          - list [ref=f11e31]:
+            - listitem [ref=f11e32]:
+              - link "Categories" [ref=f11e33] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/categories
+            - listitem [ref=f11e37]:
+              - link "Media library" [ref=f11e38] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/media-assets
+            - listitem [ref=f11e42]:
+              - link "Menus" [ref=f11e43] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/menus
+            - listitem [ref=f11e47]:
+              - link "Pages" [ref=f11e48] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/pages
+            - listitem [ref=f11e52]:
+              - link "Posts" [ref=f11e53] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/posts
+            - listitem [ref=f11e57]:
+              - link "Projects" [ref=f11e58] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/projects
+            - listitem [ref=f11e62]:
+              - link "Tags" [ref=f11e63] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/tags
+        - listitem [ref=f11e68]:
+          - generic [ref=f11e69] [cursor=pointer]:
+            - generic [ref=f11e70]: Careers
+            - button "Careers" [expanded] [ref=f11e71]
+          - list [ref=f11e74]:
+            - listitem [ref=f11e75]:
+              - link "Applications Board" [ref=f11e76] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/applications-board
+            - listitem [ref=f11e80]:
+              - link "Job Applications" [ref=f11e81] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/job-applications
+            - listitem [ref=f11e85]:
+              - link "Job Postings" [ref=f11e86] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/job-postings
+        - listitem [ref=f11e90]:
+          - generic [ref=f11e91] [cursor=pointer]:
+            - generic [ref=f11e92]: Forms
+            - button "Forms" [expanded] [ref=f11e93]
+          - list [ref=f11e96]:
+            - listitem [ref=f11e97]:
+              - link "Form Submissions" [ref=f11e98] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/form-submissions
+            - listitem [ref=f11e102]:
+              - link "Forms" [ref=f11e103] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/forms
+        - listitem [ref=f11e107]:
+          - generic [ref=f11e108] [cursor=pointer]:
+            - generic [ref=f11e109]: System
+            - button "System" [expanded] [ref=f11e110]
+          - list [ref=f11e113]:
+            - listitem [ref=f11e114]:
+              - link "Activity log" [ref=f11e115] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/admin/activities
+    - main [ref=f11e120]:
+      - generic [ref=f11e122]:
+        - generic [ref=f11e124]:
+          - navigation "Breadcrumb" [ref=f11e125]:
+            - list [ref=f11e126]:
+              - listitem [ref=f11e127]:
+                - link "Pages" [ref=f11e128] [cursor=pointer]:
+                  - /url: http://127.0.0.1:8000/admin/pages
+              - listitem [ref=f11e129]:
+                - generic [ref=f11e132]: Create
+          - heading "Create Page" [level=1] [ref=f11e133]
+        - generic [ref=f11e139]:
+          - generic [ref=f11e143]:
+            - generic [ref=f11e264]:
+              - tablist "Content" [ref=f11e265]:
+                - tab "English" [selected] [ref=f11e266] [cursor=pointer]
+                - tab "العربية" [ref=f11e268] [cursor=pointer]
+              - tabpanel [ref=f11e270]:
+                - generic [ref=f11e271]:
+                  - generic [ref=f11e274]:
+                    - generic [ref=f11e278]:
+                      - text: En
+                      - superscript [ref=f11e279]: "*"
+                    - textbox "En*" [ref=f11e283]
+                  - generic [ref=f11e286]:
+                    - generic [ref=f11e290]:
+                      - text: En
+                      - superscript [ref=f11e291]: "*"
+                    - textbox "En*" [ref=f11e295]
+                  - generic [ref=f11e298]:
+                    - generic [ref=f11e299]: En
+                    - textbox "En" [ref=f11e307]
+            - generic [ref=f11e146]:
+              - generic [ref=f11e147]: Page blocks
+              - group "Page blocks" [ref=f11e152]:
+                - generic [ref=f11e153]:
+                  - button "Add block" [expanded] [ref=f11e155] [cursor=pointer]
+                  - generic [ref=f11e320]:
+                    - button "Hero — Cinematic" [ref=f11e321] [cursor=pointer]
+                    - button "Hero — Interior" [ref=f11e323] [cursor=pointer]
+                    - button "Case study reel" [ref=f11e325] [cursor=pointer]
+                    - button "Statistics row" [ref=f11e327] [cursor=pointer]
+                    - button "Process triptych" [ref=f11e329] [cursor=pointer]
+                    - button "Capabilities scroll" [ref=f11e331] [cursor=pointer]
+                    - button "Logo marquee" [ref=f11e333] [cursor=pointer]
+                    - button "Testimonials" [ref=f11e335] [cursor=pointer]
+                    - button "Character loop" [ref=f11e337] [cursor=pointer]
+                    - button "Posts grid" [ref=f11e339] [cursor=pointer]
+                    - button "Jobs list" [ref=f11e341] [cursor=pointer]
+                    - button "FAQ" [ref=f11e343] [cursor=pointer]
+                    - button "Dynamic form" [ref=f11e345] [cursor=pointer]
+                    - button "CTA band" [ref=f11e347] [cursor=pointer]
+                    - button "Rich text" [ref=f11e349] [cursor=pointer]
+                    - button "Full-width media" [ref=f11e351] [cursor=pointer]
+            - region [ref=f11e159]:
+              - heading "Publishing" [level=2] [ref=f11e162]
+              - generic [ref=f11e164]:
+                - generic [ref=f11e167]:
+                  - generic [ref=f11e168]: Department id
+                  - generic [ref=f11e308]:
+                    - combobox "Department id" [ref=f11e309] [cursor=pointer]:
+                      - generic [ref=f11e310]: Select an option
+                    - status [ref=f11e312]
+                - generic [ref=f11e179]:
+                  - generic [ref=f11e180]: Parent id
+                  - generic [ref=f11e313]:
+                    - combobox "Parent id" [ref=f11e314] [cursor=pointer]:
+                      - generic [ref=f11e315]: Select an option
+                    - status [ref=f11e317]
+                - generic [ref=f11e191]:
+                  - generic [ref=f11e195]:
+                    - text: Template
+                    - superscript [ref=f11e196]: "*"
+                  - combobox "Template*" [ref=f11e200]:
+                    - option "Select an option"
+                    - option "Default" [selected]
+                    - option "Landing"
+                    - option "Minimal"
+                - generic [ref=f11e203]:
+                  - generic [ref=f11e207]:
+                    - text: Status
+                    - superscript [ref=f11e208]: "*"
+                  - combobox "Status*" [ref=f11e212]:
+                    - option "Select an option"
+                    - option "Draft" [selected]
+                    - option "Published"
+                    - option "Scheduled"
+                    - option "Archived"
+                - generic [ref=f11e215]:
+                  - generic [ref=f11e216]: Published at
+                  - textbox "Published at" [ref=f11e223]
+                - generic [ref=f11e226]:
+                  - generic [ref=f11e227]: Sort order
+                  - spinbutton "Sort order" [ref=f11e234]: "0"
+                - generic [ref=f11e240]:
+                  - switch "Is homepage" [ref=f11e241] [cursor=pointer]
+                  - generic [ref=f11e242]: Is homepage
+            - region [ref=f11e246]:
+              - generic [ref=f11e247] [cursor=pointer]:
+                - heading "SEO" [level=2] [ref=f11e249]
+                - button "Expand section" [ref=f11e250]
+          - generic [ref=f11e257]:
+            - button "Create" [ref=f11e258] [cursor=pointer]
+            - button "Create & create another" [ref=f11e260] [cursor=pointer]
+            - button "Cancel" [ref=f11e261] [cursor=pointer]
+  - generic:
+    - status

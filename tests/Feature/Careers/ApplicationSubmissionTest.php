@@ -3,7 +3,6 @@
 use App\Filament\Resources\JobApplications\JobApplicationResource;
 use App\Models\JobApplication;
 use App\Models\JobPosting;
-use App\Models\PipelineStage;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;

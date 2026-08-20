@@ -2,8 +2,6 @@
 
 use App\Models\Department;
 use App\Models\JobApplication;
-use App\Models\JobPosting;
-use App\Models\StageTransition;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Gate;

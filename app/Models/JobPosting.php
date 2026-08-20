@@ -7,29 +7,41 @@ use App\Enums\ExperienceLevel;
 use App\Enums\JobStatus;
 use App\Enums\SalaryPeriod;
 use App\Enums\WorkplaceType;
-use App\Observers\JobPostingObserver;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Spatie\Activitylog\Contracts\Activity as ActivityContract;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Translatable\HasTranslations;
 
+/**
+ * @property EmploymentType|null $employment_type
+ * @property WorkplaceType|null $workplace_type
+ * @property ExperienceLevel|null $experience_level
+ * @property SalaryPeriod|null $salary_period
+ * @property JobStatus $status
+ * @property Carbon|null $published_at
+ * @property Carbon|null $closes_at
+ * @property-read Department|null $department
+ * @property-read Form|null $form
+ */
 class JobPosting extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes, HasTranslations, InteractsWithMedia, LogsActivity;
+    use HasFactory, HasTranslations, InteractsWithMedia, LogsActivity, SoftDeletes;
 
     public array $translatable = [
         'title', 'slug', 'summary', 'description', 'responsibilities', 'requirements', 'benefits',
     ];
 
     protected $fillable = [
-        'department_id', 'reference_code', 'title', 'slug', 'summary', 'description',
+        'department_id', 'form_id', 'reference_code', 'title', 'slug', 'summary', 'description',
         'responsibilities', 'requirements', 'benefits', 'employment_type', 'workplace_type',
         'city', 'country_code', 'experience_level', 'experience_years_min', 'salary_min',
         'salary_max', 'salary_currency', 'salary_period', 'salary_is_public', 'positions_count',
@@ -89,14 +101,19 @@ class JobPosting extends Model implements HasMedia
         return DB::transaction(fn (): bool => parent::save($options));
     }
 
-    public function department()
+    public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
     }
 
-    public function applications()
+    public function applications(): HasMany
     {
         return $this->hasMany(JobApplication::class);
+    }
+
+    public function form(): BelongsTo
+    {
+        return $this->belongsTo(Form::class);
     }
 
     public function scopePublished(Builder $query): Builder

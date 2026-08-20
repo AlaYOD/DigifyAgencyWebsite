@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import type { SharedPageProps } from '../types';
 
 export default function AppLayout({ children }: PropsWithChildren) {
-    const { locale, direction, locales, settings } = usePage<SharedPageProps>().props;
+    const { locale, direction, locales, settings, menus } = usePage<SharedPageProps>().props;
     const currentLocale = locales.find((item) => item.code === locale);
     const otherLocale = locales.find((item) => item.code !== locale) ?? currentLocale;
     const currentPath = typeof window === 'undefined' ? '/' : window.location.pathname;
@@ -12,7 +12,14 @@ export default function AppLayout({ children }: PropsWithChildren) {
     const pathWithoutLocale = ['en', 'ar'].includes(pathParts[0] ?? '')
         ? pathParts.slice(1)
         : pathParts;
-    const languagePath = '/' + (otherLocale?.code ?? 'en') + '/' + pathWithoutLocale.join('/') + (currentPath.endsWith('/') ? '/' : '');
+    const languagePrefix = otherLocale?.code === 'ar' ? 'ar' : '';
+    const localizedPath = [languagePrefix, ...pathWithoutLocale]
+        .filter(Boolean)
+        .join('/');
+    const languagePath = localizedPath === ''
+        ? '/'
+        : `/${localizedPath}${currentPath.endsWith('/') ? '/' : ''}`;
+    const mainMenu = menus.main?.items ?? [];
 
     useEffect(() => {
         document.documentElement.lang = locale;
@@ -23,13 +30,12 @@ export default function AppLayout({ children }: PropsWithChildren) {
         <div className="min-h-screen bg-white text-slate-800">
             <header className="border-b border-slate-200">
                 <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-5">
-                    <Link href="/" className="text-xl font-semibold tracking-tight text-brand-navy">
+                    <Link href={locale === 'ar' ? '/ar/' : '/'} className="text-xl font-semibold tracking-tight text-brand-navy">
                         {settings.site_name}
                     </Link>
                     <nav className="flex items-center gap-6 text-sm font-medium">
-                        <Link href="/careers/" className="text-slate-700 hover:text-brand-navy">
-                            Careers
-                        </Link>
+                        {mainMenu.map((item) => <Link key={item.id} href={item.url} target={item.target === 'new' ? '_blank' : undefined} className="text-slate-700 hover:text-brand-navy">{item.label}</Link>)}
+                        {mainMenu.length === 0 && <Link href={locale === 'ar' ? '/ar/careers/' : '/careers/'} className="text-slate-700 hover:text-brand-navy">Careers</Link>}
                         <a href={languagePath} className="text-slate-700 hover:text-brand-navy">
                             {otherLocale?.native_name}
                         </a>

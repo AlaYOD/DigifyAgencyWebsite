@@ -1,12 +1,134 @@
-@import 'tailwindcss';
+@import 'tailwindcss' source(none);
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+@source '../js';
+
+
+@font-face {
+    font-family: 'Digify Montserrat';
+    src: url('../fonts/Montserrat-Variable.woff2') format('woff2'),
+        url('../fonts/Montserrat-Variable.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Digify FF Shamel';
+    src: url('../fonts/FFShamel-SansOne-Book.woff2') format('woff2'),
+        url('../fonts/FFShamel-SansOne-Book.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Digify FF Shamel';
+    src: url('../fonts/FFShamel-SansOne-Bold.woff2') format('woff2'),
+        url('../fonts/FFShamel-SansOne-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --brand-navy: #000038;
+    --brand-navy-soft: #08085f;
+    --brand-blue: #1f75fd;
+    --brand-green: #27c362;
+    --brand-yellow: #ffcb05;
+    --brand-mint: #03d6a6;
+    --brand-orange: #ff9e19;
+    --brand-pink: #ff69ff;
+    --brand-ink: #05063d;
+    --brand-ink-deep: #020329;
+    --brand-ink-soft: #11135a;
+    --brand-paper: #f7f8fc;
+    --brand-white: #fff;
+    --brand-text: #10113e;
+    --brand-muted: #62647b;
+    --brand-line: #05050529;
+    --brand-line-light: #ffffff2e;
+    --brand-container: 1320px;
+    --brand-header-height: 80px;
+    --brand-radius-sm: 12px;
+    --brand-radius-md: 20px;
+    --brand-radius-lg: 36px;
+    --brand-shadow: 0 24px 70px #05063d1c;
+    --brand-ease-cinematic: cubic-bezier(.16, 1, .3, 1);
+    --brand-ease-out: cubic-bezier(.22, 1, .36, 1);
+}
 
 @theme {
-    --color-brand-navy: #000038;
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-brand-navy: var(--brand-navy);
+    --color-brand-navy-soft: var(--brand-navy-soft);
+    --color-brand-blue: var(--brand-blue);
+    --color-brand-green: var(--brand-green);
+    --color-brand-yellow: var(--brand-yellow);
+    --color-brand-mint: var(--brand-mint);
+    --color-brand-orange: var(--brand-orange);
+    --color-brand-pink: var(--brand-pink);
+    --color-brand-ink: var(--brand-ink);
+    --color-brand-ink-deep: var(--brand-ink-deep);
+    --color-brand-ink-soft: var(--brand-ink-soft);
+    --color-brand-paper: var(--brand-paper);
+    --color-brand-white: var(--brand-white);
+    --color-brand-text: var(--brand-text);
+    --color-brand-muted: var(--brand-muted);
+    --color-brand-line: var(--brand-line);
+    --color-brand-line-light: var(--brand-line-light);
+    --color-slate-200: var(--brand-line);
+    --color-slate-300: #cdd0d8;
+    --color-slate-500: var(--brand-muted);
+    --color-slate-600: var(--brand-muted);
+    --color-slate-700: var(--brand-text);
+    --font-sans: 'Digify Montserrat', Montserrat, Arial, sans-serif;
+    --font-arabic: 'Digify FF Shamel', 'Noto Kufi Arabic', Tahoma, Arial, sans-serif;
+    --container-brand: 1320px;
+}
+
+@layer base {
+    *,
+    ::before,
+    ::after {
+        box-sizing: border-box;
+        border-color: var(--brand-line);
+    }
+
+    html {
+        background: var(--brand-paper);
+        color: var(--brand-text);
+        font-family: var(--font-sans);
+        text-rendering: optimizeLegibility;
+    }
+
+    html:lang(ar) {
+        font-family: var(--font-arabic);
+    }
+
+    body {
+        min-width: 320px;
+        margin: 0;
+        background: var(--brand-paper);
+        color: inherit;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: var(--brand-navy);
+        font-weight: 700;
+        letter-spacing: -0.04em;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+        font: inherit;
+    }
 }

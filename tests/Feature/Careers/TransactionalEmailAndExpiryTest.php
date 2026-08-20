@@ -45,10 +45,8 @@ it('queues candidate and HR email in the application locale', function (): void 
         ->assertRedirect();
 
     $application = JobApplication::firstOrFail();
-    Mail::assertQueued(ApplicationReceived::class, fn (ApplicationReceived $mail): bool =>
-        $mail->application->is($application) && $mail->application->locale === 'ar');
-    Mail::assertQueued(NewApplication::class, fn (NewApplication $mail): bool =>
-        $mail->application->is($application));
+    Mail::assertQueued(ApplicationReceived::class, fn (ApplicationReceived $mail): bool => $mail->application->is($application) && $mail->application->locale === 'ar');
+    Mail::assertQueued(NewApplication::class, fn (NewApplication $mail): bool => $mail->application->is($application));
 });
 
 it('renders the actual Arabic vacancy title in the candidate email', function (): void {

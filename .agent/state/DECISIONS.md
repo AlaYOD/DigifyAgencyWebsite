@@ -9,3 +9,4 @@ Append-only. One line each. Newest at the bottom.
 | — | D-C | Filament for admin despite React front end | ~60% of effort saved; admin UI is not visible value |
 | — | D-D | Translations as JSONB, not a translations table | Postgres GIN indexes make it queryable; Filament supports it natively |
 | — | D-E | `applications.viewPii` separate from `applications.view` | IT needs system access, not candidate personal data |
+2026-08-20: Added a `content_editor` RBAC role for day-to-day bilingual content, project, menu, and page-builder work without destructive delete or system-administration permissions.
