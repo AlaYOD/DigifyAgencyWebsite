@@ -6,7 +6,7 @@ parameters:
     paths:
         - app
     parallel:
-        maximumNumberOfProcesses: 1
+        maximumNumberOfProcesses: 4
     excludePaths:
         analyse:
             - bootstrap/cache/*
